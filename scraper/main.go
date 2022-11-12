@@ -15,5 +15,5 @@ func main() {
 	newScanner.OnHTML("span.dt", func(h *colly.HTMLElement) {
 		println(h.ChildText("span[class=dtText]"))
 	})
-	newScanner.Visit("https://www.merriam-webster.com/dictionary/pizza")
+	newScanner.Visit("https://www.merriam-webster.com/dictionary/" + topic)
 }
