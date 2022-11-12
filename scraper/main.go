@@ -18,20 +18,20 @@ func main() {
 	var topic string
 	fmt.Scan(&topic)
 
-	file.WriteString("[" + topic + ",")
+	file.WriteString(topic)
+	file.WriteString("\n")
 
 	newScanner := colly.NewCollector()
 	newScanner.OnHTML("span.dt", func(h *colly.HTMLElement) {
 		println(h.ChildText("span[class=dtText]"))
-		file.WriteString("'" + h.ChildText("span[class=dtText]") + "',")
+		file.WriteString(h.ChildText("span[class=dtText]") + "\n")
 	})
 	newScanner.Visit("https://www.merriam-webster.com/dictionary/" + topic)
 
 	newScanner1 := colly.NewCollector()
 	newScanner1.OnHTML("a[data-test-id=image-result-link]", func(x *colly.HTMLElement) {
 		println(x.ChildAttr("img[class=image-result__image]", "src"))
-		file.WriteString("'" + x.ChildAttr("img[class=image-result__image]", "src") + "',")
+		file.WriteString(x.ChildAttr("img[class=image-result__image]", "src") + "\n")
 	})
 	newScanner1.Visit("https://www.ecosia.org/images?q=" + topic)
-	file.WriteString("'1']")
 }
