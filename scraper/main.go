@@ -18,8 +18,8 @@ func main() {
 	newScanner.Visit("https://www.merriam-webster.com/dictionary/" + topic)
 
 	newScanner1 := colly.NewCollector()
-	newScanner1.OnHTML("div. bRMDJf islir", func(h *colly.HTMLElement) {
-		println(h.ChildText("img[data-deffered=1]"))
+	newScanner1.OnHTML("a[data-test-id=image-result-link]", func(x *colly.HTMLElement) {
+		println(x.ChildAttr("img[class=image-result__image]", "src"))
 	})
-	newScanner1.Visit("https://www.google.com/search?q=" + topic + "&tbm=isch")
+	newScanner1.Visit("https://www.ecosia.org/images?q=" + topic)
 }
